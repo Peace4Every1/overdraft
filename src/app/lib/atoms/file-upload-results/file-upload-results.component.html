@@ -1,0 +1,13 @@
+<div class="l-uploaded-files" *ngIf="files">
+  <div class="l-file" *ngFor="let file of files, let i = index">
+    <!-- todo draw filenames after networking-->
+    <span>{{'f_' + file.name.substring(0, 5) + file.name.substring(file.name.indexOf('.'))}}</span>
+    <app-button (click)="onDeleteFile(file.name)"
+                [iconClass]="deleteFileIconClass ? deleteFileIconClass : 'icon-times'"
+                [rightIcon]="true">
+    </app-button>
+  </div>
+  <app-error-msg [hasErr]="hasErr"
+                 [errMsg]="errMsg">
+  </app-error-msg>
+</div>

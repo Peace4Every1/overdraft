@@ -1,0 +1,33 @@
+<td *ngIf="order">
+  <p>{{order}}</p>
+</td>
+<td *ngFor="let rowData of rowConfig">
+  <app-input *ngIf="rowData.component === 'input'"
+             [value]="rowData.value ? rowData.value : ''"
+             [placeholder]="rowData.placeholder ? rowData.placeholder : ''"
+             (inputChange)="onInput($event, rowData.model)"
+             [hasErr]="rowData?.hasErr"
+             [errMsg]="rowData?.errMsg ? rowData?.errMsg[0] : ''"
+             [iconClass]="rowData.iconClass"
+             [leftIcon]="rowData.leftIcon"
+             [rightIcon]="rowData.rightIcon">
+  </app-input>
+
+  <!--todo text component -->
+  <p *ngIf="rowData.component === 'text'" class="l-text">{{rowData.value}} {{rowData.styleClass}}</p>
+
+  <app-repetitive-table *ngIf="rowData.component === 'table'"
+                        class="l-table"
+                        [rowConfig]="rowData.rowConfig"
+                        [rowStartCount]="rowData.rowStartCount"
+                        [showTable]="rowData.showTable">
+  </app-repetitive-table>
+
+  <app-button *ngIf="rowData.component === 'button'"
+              (click)="onRowAction(rowData.action)"
+              [text]="rowData.btnText"
+              [iconClass]="rowData.iconClass"
+              [leftIcon]="rowData.leftIcon"
+              [rightIcon]="rowData.rightIcon">
+  </app-button>
+</td>

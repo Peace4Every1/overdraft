@@ -1,0 +1,45 @@
+<div class="l-select" #select>
+  <div class="l-selection">
+    <app-input [placeholder]="selectionPlaceholder ? selectionPlaceholder : 'Select'"
+               [value]="selectedOptionsRender ? selectedOptionsRender : null"
+               [readonly]="true"
+               [label]="selectionLabel"
+               [hasErr]="selectionHassErr"
+               [errMsg]="selectionErrMsg ? selectionErrMsg : ''"
+               (inputClick)="toggleSelect($event)"
+               [iconClass]="selectionIconClass ? selectionIconClass : 'icon-cheveron-down'"
+               [leftIcon]="selectionLeftIcon ? selectionLeftIcon : false"
+               [rightIcon]="selectionRightIcon ? selectionRightIcon : true">
+    </app-input>
+  </div>
+
+  <div class="l-select-options" *ngIf="optionsVisible">
+    <!-- autocomplet : optional-->
+    <app-input *ngIf="hasAutocomplete"
+               [placeholder]="autocompletePlaceholder ? autocompletePlaceholder : 'Find option'"
+               [value]="autocompleteValue ? autocompleteValue : null"
+               [hasErr]="autocompleteHassErr"
+               [errMsg]="autocompleteErrMsg ? autocompleteErrMsg : 'No result is found'"
+               (inputChange)="onAutocomplete($event)"
+               [iconClass]="autocompleteIconClass"
+               [leftIcon]="autocompleteLeftIcon"
+               [rightIcon]="autocompleteRightIcon">
+    </app-input>
+    <!-- option list : required-->
+    <div *ngIf="!isMultiselect">
+      <div class="l-option" *ngFor="let option of selectOptions"
+           [ngClass]="option.selected ? 'l-option-selected' : ''"
+           (click)="selectOption(option.key)">
+        {{option.value}}
+      </div>
+    </div>
+
+    <div *ngIf="isMultiselect" class="multiselect">
+      <div>
+        <app-checkbox [checkboxOptions]="selectOptions"
+                      (checkboxSelectOption)="onCheckboxSelect($event)">
+        </app-checkbox>
+      </div>
+    </div>
+  </div>
+</div>

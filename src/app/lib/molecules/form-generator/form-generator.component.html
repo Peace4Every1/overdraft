@@ -1,0 +1,85 @@
+<div class="l-form" (keydown)="onEnter($event)">
+  <div class="l-form-builder">
+    <div *ngFor="let groupClass of fieldGroupingConfig" class="l-field-wrapper" [ngClass]="groupClass">
+      <div *ngFor="let field of fieldConfig">
+        <!-- assign to group-->
+        <div *ngIf="(field.group && field.group === groupClass) || !field.group">
+          <!-- input type: text, number, email, phone, url-->
+          <div class="l-field" *ngIf="!field.component || field.component === 'input'">
+            <app-input [placeholder]="field.placeholder"
+                       [value]="field.value ? field.value : null"
+                       [readonly]="field.readonly"
+                       [label]="field.label"
+                       [hasErr]="field?.hasErr"
+                       [errMsg]="field?.errMsg ? field?.errMsg[0] : ''"
+                       (inputChange)="onInput($event, field.model)"
+                       [iconClass]="field.iconClass"
+                       [leftIcon]="field.leftIcon"
+                       [rightIcon]="field.rightIcon">
+            </app-input>
+          </div>
+          <!-- file upload-->
+          <div class="l-field" *ngIf="field.component === 'file'">
+            <app-file-upload [ngClass]="field.disable ? 'no-event' : ''"
+                             [allowMultiple]="field.allowMultiple"
+                             [acceptTypes]="field.acceptTypes"
+                             [uploadBtnText]="field.uploadBtnText"
+                             [uploadBtnTextIconClass]="field.uploadBtnTextIconClass"
+                             [uploadBtnTextIconClassLeftIcon]="field.uploadBtnTextIconClassLeftIcon"
+                             [uploadBtnTextIconClassRightIcon]="field.uploadBtnTextIconClassRightIcon"
+                             (fileUpload)="onFileUpload($event, field.model)">
+            </app-file-upload>
+            <app-file-upload-results *ngIf="field.files"
+                                    [files]="field.files"
+                                    (deleteFile)="onDeleteFile($event, field.model)"
+                                    [hasErr]="field.hasErr"
+                                    [errMsg]="field?.errMsg ? field?.errMsg[0] : ''">
+            </app-file-upload-results>
+          </div>
+          <!-- select OR select with autocomplete-->
+          <div class="l-field" *ngIf="field.component === 'select'">
+            <app-select-autocomplete [selectOptions]="field.selectOptions"
+                                     [selectedOptions]="field.selectedOptions"
+                                     [selectionPlaceholder]="field.selectionPlaceholder"
+                                     [selectionHassErr]="field.hasErr"
+                                     [selectionErrMsg]="field.errMsg"
+                                     [hasAutocomplete] ="field.hasAutocomplete"
+                                     [isMultiselect]="field.isMultiselect"
+                                     (optionSelect)="onOptionSelect($event, field.model)">
+            </app-select-autocomplete>
+          </div>
+          <!-- checkbox-->
+          <div class="l-field" *ngIf="field.component === 'checkbox'">
+            <app-checkbox [checkboxOptions]="field.selectOptions"
+                          [hasErr]="field.hasErr"
+                          [errMsg]="field.errMsg"
+                          (checkboxSelectOption)="onCheckboxSelect($event, field.model)">
+            </app-checkbox>
+          </div>
+          <!-- radio-->
+          <div class="l-field" *ngIf="field.component === 'radio'">
+            <app-radio-button [radioButtonOptions]="field.selectOptions"
+                              [radioButtonSelectedOptions]="field.selectedOptions"
+                              [hasErr]="field.hasErr"
+                              [errMsg]="field.errMsg"
+                              (radioButtonSelectOption)="onRadioSelect($event, field.model)">
+            </app-radio-button>
+          </div>
+          <!-- datepicker-->
+          <div class="l-field" *ngIf="field.component === 'date'">
+            <app-datepicker></app-datepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <app-button (click)="onSend()"
+                [text]="sendBtnText"
+                [iconClass]="sendBtnTextIconClass"
+                [leftIcon]="sendBtnTextIconClassLeftIcon"
+                [rightIcon]="sendBtnTextIconClassRightIcon">
+    </app-button>
+  </div>
+</div>

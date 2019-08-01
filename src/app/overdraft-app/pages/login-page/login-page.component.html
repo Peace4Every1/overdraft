@@ -1,0 +1,13 @@
+<h1>Login as</h1>
+
+<app-button text="customer"
+            [rightIcon]="true">
+</app-button>
+
+<app-button text="bank">
+</app-button>
+
+<app-form-generator [fieldConfig]="fieldConfig"
+                    [sendBtnText]="sendBtnText"
+                    (send)="onSend($event)">
+</app-form-generator>

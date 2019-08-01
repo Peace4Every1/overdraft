@@ -1,0 +1,12 @@
+<div class="l-file-upload">
+  <input type="file" (change)="onChange($event)"
+                     [multiple]="allowMultiple"
+                     [accept]="acceptTypes"
+                     #el/>
+  <app-button (click)="onFileUpload(el)"
+              [text]="uploadBtnText"
+              [iconClass]="uploadBtnTextIconClass"
+              [leftIcon]="uploadBtnTextIconClassLeftIcon"
+              [rightIcon]="uploadBtnTextIconClassRightIcon">
+  </app-button>
+</div>

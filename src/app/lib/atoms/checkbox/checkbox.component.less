@@ -1,0 +1,44 @@
+@import '../../../../assets/less/variables.less';
+
+.l-checkbox {
+   line-height: 30px;
+}
+
+.l-checkbox-options {
+  .flex;
+}
+
+.l-checkbox-option {
+  .flex;
+  .center-top;
+  cursor: pointer;
+  margin-right: 12px;
+
+  .selection-area {
+    width: 16px;
+    height: 16px;
+    .flex;
+    .center-top;
+    .center-left;
+    text-align: center;
+    border: 1px solid @gray;
+    border-radius: 3px;
+    margin-right: 5px;
+
+    i {
+      color: @blue;
+      opacity: 0;
+      .transition;
+    }
+
+    &.selected{
+      i {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+
+

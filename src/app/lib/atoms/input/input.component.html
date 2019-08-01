@@ -1,0 +1,16 @@
+<div class="l-input-wrapper" (click)="onInputClick($event)">
+  <div class="l-label">{{label}}</div>
+  <div class="l-input" [ngClass]="leftIcon ? 'hasLeftIcon' : rightIcon ? 'hasRightIcon' : ''">
+    <i class="icon left-icon" [ngClass]="leftIcon ? iconClass : ''"></i>
+    <input
+      type="text"
+      [value]="value"
+      [placeholder]="placeholder"
+      (input)="onInput($event)"
+      [readonly]="readonly">
+    <i class="icon right-icon" [ngClass]="rightIcon ? iconClass : ''"></i>
+  </div>
+  <app-error-msg [hasErr]="hasErr"
+                 [errMsg]="errMsg">
+  </app-error-msg>
+</div>

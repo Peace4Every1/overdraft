@@ -1,0 +1,17 @@
+@import '../../../../assets/less/variables.less';
+
+.l-form-builder{
+  .flex;
+}
+
+:host ::ng-deep {
+  .no-event {
+    pointer-events: none;
+
+    button {
+      opacity: .5;
+      background: @gray;
+      border: 1px solid @gray;
+    }
+  }
+}

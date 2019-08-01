@@ -1,0 +1,15 @@
+<div class="l-checkbox">
+  <div class="l-checkbox-label" *ngIf="label">{{label}}</div>
+  <div class="l-checkbox-options">
+    <div class="l-checkbox-option" *ngFor="let option of checkboxOptions"
+                                   (click)="onSelectOption(option.key)">
+      <div class="selection-area" [ngClass]="option.selected ? 'selected' : ''">
+        <i class="icon" [ngClass]="checkboxIcon ? checkboxIcon : 'icon-tick'"></i>
+      </div>
+      <div class="selection-value">{{option.value}}</div>
+    </div>
+  </div>
+  <app-error-msg [hasErr]="hasErr"
+                 [errMsg]="errMsg">
+  </app-error-msg>
+</div>

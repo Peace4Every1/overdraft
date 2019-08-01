@@ -1,0 +1,39 @@
+<div class="l-repetitive-table" *ngIf="showTable">
+  <table>
+    <thead *ngIf="rowTitleConf">
+      <tr>
+        <th *ngFor="let title of rowTitleConf">
+          {{title}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableRowArr, let index = index">
+        <app-repetitive-table-row [rowConfig]="row.rowConfig"
+                                  [order]="order ? index + 1 : false"
+                                  (inputChange)="onInput($event, row.rowIndex)"
+                                  (rowAction)="onRowAction($event, row.rowIndex)">
+        </app-repetitive-table-row>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="l-repetitive-table-cta flex">
+    <app-input [placeholder]="addRowInputCountText"
+               (inputChange)="onAddRowInputChange($event)"
+               [value]="addRowInputCount"
+               [hasErr]="addRowInputHasErr"
+               [errMsg]="addRowInputErrMsg"
+               [iconClass]="addRowInputIconClass"
+               [leftIcon]="addRowInputLeftIcon"
+               [rightIcon]="addRowInputRightIcon">
+    </app-input>
+
+    <app-button (click)="onAddRow()"
+                [text]="addRowBtnText"
+                [iconClass]="addRowBtnTextClass"
+                [leftIcon]="addRowBtnTextLeftIcon"
+                [rightIcon]="addRowBtnTextRightIcon">
+    </app-button>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="repetitive-table">
+  <h1>REPETITIVE TABLE</h1>
+  <app-repetitive-table [rowConfig]="rowConfig"
+                        [rowStartCount]="rowStartCount"
+                        order = 'true'
+                        (rowAction)="onRowAction($event)">
+  </app-repetitive-table>
+</div>
+
+
+<div class="form form-1">
+  <h1>FORM 1</h1>
+  <app-form-generator [fieldConfig]="fieldConfig"
+                      [sendBtnText]="sendBtnText"
+                      (send)="onSend($event)">
+  </app-form-generator>
+</div>
+
+
+<div class="form form-2">
+  <h1>FORM 2</h1>
+  <app-form-generator [fieldConfig]="fieldConfig_2"
+                      [fieldGroupingConfig]="fieldGroupingConfig_2"
+                      sendBtnText="Send"
+                      sendBtnTextIconClass="icon-messages"
+                      [sendBtnTextIconClassLeftIcon]="true"
+                      (send)="onSend($event)">
+  </app-form-generator>
+</div>
+
+
+<div class="form form-3">
+  <h1>FORM 3</h1>
+  <app-form-generator [fieldConfig]="fieldConfig_3"
+                      [fieldGroupingConfig]="fieldGroupingConfig_3"
+                      sendBtnText="Send message"
+                      (send)="onSend($event)">
+  </app-form-generator>
+</div>
+
+
+<div class="datepicker">
+  <h1>Datepicker</h1>
+  <app-datepicker></app-datepicker>
+</div>

@@ -1,0 +1,35 @@
+@import '../../../../assets/less/variables.less';
+
+.l-uploaded-files {
+  width: 200px;
+  .flex;
+  .flex-wrap;
+
+  .l-file {
+    height: 30px;
+    font-size: .7rem;
+    .flex;
+    .center-top;
+    border: 1px solid @blue;
+    border-radius: 3px;
+    margin: 1px;
+    padding: 2px;
+  }
+}
+
+:host ::ng-deep {
+  .l-file {
+    button {
+      font-size: 1.2rem;
+      margin-left: 1px;
+      border: none;
+      background: none;
+      color: @gray;
+      .transition;
+
+      &:hover {
+        color: @blue;
+      }
+    }
+  }
+}

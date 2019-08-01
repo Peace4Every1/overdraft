@@ -1,0 +1,143 @@
+@import '../../../../assets/less/variables.less';
+
+.l-date-picker-wrap {
+  position: relative;
+  width: 200px;
+}
+
+.l-date-result {
+  .flex;
+  .center-top;
+  width: 180px;
+
+  input {
+    padding: 0 5px;
+    line-height: 30px;
+    border: 1px solid @gray;
+    width: 100%;
+    margin-right: 3px;
+  }
+
+  .date-format-onfocus {
+    font-size: .9rem;
+    color: @gray;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    pointer-events: none;
+    .transition;
+
+    &.focus {
+      font-size: .7rem;
+      top: -17px;
+      left: 0;
+    }
+  }
+}
+
+.l-date-picker {
+  width: 230px;
+  height: 260px;
+  background: white;
+  margin-top: 2px;
+  border: 1px solid @gray;
+  padding: 5px;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  z-index: 9999999999999999;
+  .transition;
+  opacity: 0;
+  pointer-events: none;
+
+  &.vis {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  table {
+    height: 185px;
+    td, th {
+      text-align: center;
+    }
+
+    th {
+      font-size: .8rem;
+      font-weight: 300;
+      padding: 3px;
+    }
+
+    td {
+      cursor: pointer;
+
+      &.current {
+        border: 1px solid @blue;
+      }
+
+      &.selected {
+        background: @blue;
+        border: 1px solid @blue;
+        color: white;
+      }
+    }
+  }
+
+  .periods {
+    font-size: .8rem;
+  }
+  .period {
+    .flex;
+    .space-between;
+    .center-top;
+    line-height: 30px;
+
+    input {
+      border: none;
+      width: 50px;
+      border-bottom: 1px solid @gray;
+      text-align: center;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .l-date-picker-wrap {
+    .l-calendar-toggle {
+      button {
+        background: transparent;
+        .transition;
+
+        &:hover {
+          color: @blue;
+        }
+      }
+    }
+
+    button {
+      border: none;
+      background: none;
+      font-size: 1rem;
+      color: @gray;
+      cursor: pointer;
+    }
+
+    .changePeriod {
+      .flex;
+
+      button {
+        background: transparent;
+        color: @gray;
+        font-size: 1.2rem;
+        border-radius: 50%;;
+        line-height: 30px;
+        text-align: center;
+        margin-right: 3px;
+        .transition;
+
+        &:hover {
+          color: @blue;
+        }
+      }
+    }
+  }
+}

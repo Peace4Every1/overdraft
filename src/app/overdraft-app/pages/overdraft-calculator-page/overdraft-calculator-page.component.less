@@ -1,0 +1,54 @@
+@import '../../../../assets/less/variables.less';
+
+:host ::ng-deep {
+    .calculator {
+        position: relative;
+    }
+    .go-step-back {
+        position: absolute;
+        top: 0;
+        right: 50px;
+        button {
+            background: transparent;
+            color: @blue;
+            border: none;
+        }
+    }
+
+    .calculator {
+        text-align: center;
+    }
+
+    .calc-block {
+        .flex;
+        .center-left;
+        padding: @block-space 0;
+        .l-form {
+            .flex;
+
+            opacity: .3;
+            pointer-events: none;
+        }
+
+        &.allow-touch {
+            .l-form {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        &.period {
+            .l-field-wrapper {
+                .flex;
+            }
+
+            .l-form {
+                .col;
+
+                .cta {
+                    margin-top: @block-space;
+                }
+            }
+        }
+    }
+}

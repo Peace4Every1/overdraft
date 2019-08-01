@@ -1,0 +1,24 @@
+@import '../../../../assets/less/variables.less';
+
+:host ::ng-deep {
+    .pick-type {
+        .flex;
+        .center-top;
+        .center-left;
+        .col;
+        min-height: 70vh;
+    }
+
+    .cta{
+        .flex;
+
+        app-button {
+            margin-top: @block-space;
+
+            &:first-child {
+                margin-right: @block-space;
+            }
+
+        }
+    }
+}

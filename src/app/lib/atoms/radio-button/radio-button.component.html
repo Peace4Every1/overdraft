@@ -1,0 +1,15 @@
+<div class="l-radio-button">
+  <div class="l-radio-button-label" *ngIf="label">{{label}}</div>
+  <div class="l-radio-button-options">
+    <div class="l-radio-button-option" *ngFor="let option of radioButtonOptions"
+                                       (click)="onSelectOption(option.key)">
+      <div class="selection-area" [ngClass]="option.selected ? 'selected' : ''">
+        <i class="icon" [ngClass]="checkboxIcon ? checkboxIcon : 'l-radio-icon'"></i>
+      </div>
+      <div class="selection-value">{{option.value}}</div>
+    </div>
+  </div>
+  <app-error-msg [hasErr]="hasErr"
+                 [errMsg]="errMsg">
+  </app-error-msg>
+</div>

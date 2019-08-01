@@ -1,0 +1,15 @@
+<div class="pick-type">
+    <h1>Pick overdraft type</h1>
+
+    <div class="cta">
+        <app-button
+                (click)="pickOverdraftType(classicOverdraft)"
+                [text]="classicOverdraftBtn">
+        </app-button>
+
+        <app-button
+                (click)="pickOverdraftType(overdraftWithGracePeriod)"
+                [text]="overdraftWithGracePeriodBtn">
+        </app-button>
+    </div>
+</div>

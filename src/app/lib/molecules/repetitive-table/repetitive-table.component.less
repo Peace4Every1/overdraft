@@ -1,0 +1,38 @@
+@import '../../../../assets/less/variables.less';
+
+.l-repetitive-table {
+  table {
+    width: 100%;
+    border: 1px solid @gray;
+    border-collapse: collapse;
+  }
+
+  tr{
+    border: 1px solid @blue;
+    width: 100%;
+    &:last-child {
+
+    }
+  }
+
+  .l-repetitive-table-cta {
+    margin: 3px 0;
+
+    button {
+      margin-left: 3px;
+    }
+  }
+}
+
+:host ::ng-deep {
+  th, td {
+    min-width: 50px;
+    padding: 3px 5px;
+    border-right: 1px solid @gray;
+    text-align: center;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

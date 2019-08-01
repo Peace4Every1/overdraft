@@ -1,0 +1,78 @@
+@import '../../../../assets/less/variables.less';
+
+:host ::ng-deep {
+  .l-select {
+    width: 150px;
+    position: relative;
+  }
+
+  .l-selection {
+    i {
+      cursor: pointer;
+    }
+  }
+
+  .l-select-options {
+    width: 200px;
+    min-height: 70px;
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid @gray;
+    border-radius: 3px;
+    padding: 3px;
+    background: white;
+
+    position: absolute;
+    top: 33px;
+    left: 0;
+    z-index: 99999999999999999;
+  }
+
+  .l-option {
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 3px;
+    border-bottom: 1px solid lighten(@gray, 10%);
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    .transition;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: @blue;
+      color: @white;
+      opacity: 1;
+    }
+
+    &.l-option-selected {
+      opacity: .4;
+      .no-event;
+    }
+  }
+
+  .multiselect {
+    .l-checkbox-options {
+      .col;
+      width: 100%;
+    }
+
+    .l-checkbox-option {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      .transition;
+
+      &:hover {
+        background: darken(@gray, 15%);
+        color: @white;
+        opacity: 1;
+      }
+    }
+  }
+}

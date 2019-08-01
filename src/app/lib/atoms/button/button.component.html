@@ -1,0 +1,8 @@
+<div class="l-button" [ngClass]="leftIcon ? 'hasLeftIcon' :
+                                 rightIcon ? 'hasRightIcon' : ''">
+  <button>
+    <i class="icon left-icon" [ngClass]="leftIcon ? iconClass : ''"></i>
+    {{text}}
+    <i class="icon right-icon" [ngClass]="rightIcon ? iconClass : ''"></i>
+  </button>
+</div>
