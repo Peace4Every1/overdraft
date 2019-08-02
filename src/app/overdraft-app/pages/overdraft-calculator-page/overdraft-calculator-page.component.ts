@@ -1,8 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {budget, singularOverdraftLimitationMax, singularOverdraftLimitationMin} from '../../dal/banks/bank-data.models';
+import {
+    budget, currentBank, singularOverdraftLimitationMax,
+    singularOverdraftLimitationMin
+} from '../../dal/banks/bank-data.models';
 import {AlertBoxService} from '../../../lib/atoms/alert-box/alert-box.service';
 import {convertToTimeStamp, stampConvertToDate} from '../../../lib/services/date.service';
+import {currentBank} from '../../dal/banks/bank-data.models';
 
 const STATES = {
     INIT: 'INIT',
@@ -80,6 +84,24 @@ export class OverdraftCalculatorPageComponent implements OnInit {
             ]
         }
     ];
+    fieldConfig_isBankCustomer = [
+        {
+            component: 'radio',
+            model: 'isBankCustomer',
+            selectOptions: [
+                {
+                    key: '1',
+                    value: 'Yes'
+                },
+                {
+                    key: '2',
+                    value: 'No',
+                    selected: true,
+                }
+            ],
+        }
+    ];
+
 
     salary;
     n = '{n}';
@@ -87,6 +109,8 @@ export class OverdraftCalculatorPageComponent implements OnInit {
 
     startDate = null;
     endDate = null;
+
+    currentBank = currentBank;
 
     constructor(private router: Router,
                 private alertBoxService: AlertBoxService,
@@ -294,5 +318,10 @@ export class OverdraftCalculatorPageComponent implements OnInit {
                                     ratio: this.ratio,
                                     startDate: startDate,
                                     endDate: endDate}});
+    }
+
+    // radio btn's
+    onStartAuction(event) {
+        this.router.navigate(['/auction']);
     }
 }

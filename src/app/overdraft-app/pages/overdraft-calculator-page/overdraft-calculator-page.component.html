@@ -37,8 +37,12 @@
                 </app-form-generator>
             </div>
         </div>
-        <div class="calc-block" [ngClass]="state === STATES.GETSALARYTHROUGHBANK ? 'allow-touch' : ''">
-            hey
+        <div class="calc-block bank" [ngClass]="state === STATES.GETSALARYTHROUGHBANK ? 'allow-touch' : ''">
+            <p class="currentBank">Are u <b>{{currentBank.name}}</b> customer?</p>
+            <app-form-generator [fieldConfig]="fieldConfig_isBankCustomer"
+                                sendBtnText="Start Auction"
+                                (send)="onStartAuction($event)">
+            </app-form-generator>
         </div>
     </div>
 </div>
