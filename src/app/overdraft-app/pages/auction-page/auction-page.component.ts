@@ -17,7 +17,8 @@ export class AuctionPageComponent implements OnInit {
     actualBid;
     mustMinBidAmount;
 
-    constructor(private alertBoxService: AlertBoxService) {}
+    constructor(private alertBoxService: AlertBoxService,
+                ) {}
 
     ngOnInit() {
         this.calcMinAllowedBidNUmber();

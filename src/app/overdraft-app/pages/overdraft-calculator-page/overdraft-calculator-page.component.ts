@@ -6,7 +6,7 @@ import {
 } from '../../dal/banks/bank-data.models';
 import {AlertBoxService} from '../../../lib/atoms/alert-box/alert-box.service';
 import {convertToTimeStamp, stampConvertToDate} from '../../../lib/services/date.service';
-import {currentBank} from '../../dal/banks/bank-data.models';
+import {OverdratfService} from '../../dal/overdraft/overdratf.service';
 
 const STATES = {
     INIT: 'INIT',
@@ -111,10 +111,12 @@ export class OverdraftCalculatorPageComponent implements OnInit {
     endDate = null;
 
     currentBank = currentBank;
+    overdraftAmount;
 
     constructor(private router: Router,
                 private alertBoxService: AlertBoxService,
-                private activatedRoute: ActivatedRoute) {}
+                private activatedRoute: ActivatedRoute,
+                private overdratfService: OverdratfService) {}
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe( queryParam => {
@@ -235,7 +237,6 @@ export class OverdraftCalculatorPageComponent implements OnInit {
         }
     }
 
-
     // overdaft rate options block
     resetOptions() {
         this.fieldConfig_options = [
@@ -339,6 +340,8 @@ export class OverdraftCalculatorPageComponent implements OnInit {
 
     // radio btn's
     onStartAuction(event) {
+        this.overdraftAmount = this.salary * this.ratio;
+        this.overdratfService.updateOverdraftAmount();
         this.router.navigate(['/auction']);
     }
 }

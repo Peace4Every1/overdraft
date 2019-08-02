@@ -15,6 +15,7 @@ import {AtomsModule} from './lib/atoms/atoms.module';
 import {MoleculesModule} from './lib/molecules/molecules.module';
 import {CoreModule} from './overdraft-app/core-components/core.module';
 import {AlertBoxService} from './lib/atoms/alert-box/alert-box.service';
+import {OverdratfService} from './overdraft-app/dal/overdraft/overdratf.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {AlertBoxService} from './lib/atoms/alert-box/alert-box.service';
   providers: [
     FormValidatorService,
     AuthenticationService,
-    AlertBoxService
+    AlertBoxService,
+    OverdratfService
   ],
   bootstrap: [AppComponent]
 })
