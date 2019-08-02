@@ -1,4 +1,7 @@
 import {Component, Input} from '@angular/core';
+import {TabInterface} from '../../../lib/atoms/tabs/tabs.component';
+import {customizeNumberService} from '../../../lib/services/customize-number.service';
+import {budget} from '../../dal/banks/bank-data.models';
 
 @Component({
     selector: 'app-header',
@@ -7,6 +10,17 @@ import {Component, Input} from '@angular/core';
 })
 
 export class HeaderComponent {
-    @Input() overdraftWithGracePeriodAmount = 0;
+    overdraftWithGracePeriodAmount = customizeNumberService(budget);
     @Input() currency = 'amd';
+
+    tabs: TabInterface[] = [
+        {
+            link: 'pick-overdraft-type',
+            text: 'Raise overdraft'
+        },
+        {
+            link: 'customer-profile',
+            text: 'Your profile'
+        },
+    ];
 }

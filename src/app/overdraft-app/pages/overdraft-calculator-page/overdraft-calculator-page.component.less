@@ -22,6 +22,8 @@
     .calc-block {
         .flex;
         .center-left;
+        opacity: .3;
+        pointer-events: none;
         padding: @block-space 0;
         .l-form {
             .flex;
@@ -31,9 +33,21 @@
         }
 
         &.allow-touch {
+            opacity: 1;
+            pointer-events: all;
             .l-form {
                 opacity: 1;
                 pointer-events: all;
+            }
+        }
+
+        &.salary {
+            .flex;
+            .col;
+
+            app-form-generator {
+                .flex;
+                .center-left;
             }
         }
 

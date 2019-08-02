@@ -1,5 +1,5 @@
 <div class="calculator">
-    <h1>calculator</h1>
+    <h1>Overdraft calculator</h1>
     <div class="go-step-back">
         <app-button text="Go step back"
                     iconClass="icon-arrow-back"
@@ -13,11 +13,13 @@
             <app-form-generator [fieldConfig]="fieldConfig_salary"
                                 sendBtnTextIconClass="icon-location-arrow"
                                 [sendBtnTextIconClassLeftIcon]="true"
+                                (inputAction)="onSalaryInput($event)"
                                 (send)="onSalarySubmission($event)">
             </app-form-generator>
 
         </div>
-        <div class="calc-block" [ngClass]="state === STATES.SALARY ? 'allow-touch' : ''">
+        <div class="calc-block salary" [ngClass]="state === STATES.SALARY ? 'allow-touch' : ''">
+            <p>Based on the budget, your salary and <b>singular overdraft limitations</b> you can pickup up to {{n}} tiems for your salary</p>
             <app-form-generator [fieldConfig]="fieldConfig_options"
                                 sendBtnTextIconClass="icon-location-arrow"
                                 [sendBtnTextIconClassLeftIcon]="true"

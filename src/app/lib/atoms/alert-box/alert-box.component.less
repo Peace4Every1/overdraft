@@ -1,0 +1,77 @@
+@import '../../../../assets/less/variables.less';
+
+/* The alert message box */
+.alert-box-container {
+    position: relative;
+    opacity: 0;
+    pointer-events: none;
+
+    &.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+.alert {
+    // width: 100%;
+    width: @container-width;
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    margin-left: -@container-width / 2;
+    z-index: 999999999999999999999999999999;
+    line-height: 40px;
+    padding: 0 20px;
+
+    &.error {
+        background: lighten(@red, 50%);
+        border: 1px solid @red;
+        color: @red;
+    }
+
+    &.warning {
+        background: lighten(@orange, 50%);
+        border: 1px solid @orange;
+        color: @orange;
+    }
+
+    &.success {
+        background: lighten(green, 50%);
+        border: 1px solid green;
+        color: green;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+
+        font-weight: 900;
+        font-size: .7rem;
+    }
+
+    /* type */
+    .type {
+        margin-right: @block-space;
+        border-radius: 50%;
+        color: @white;
+
+        &.error { background: @red; }
+        &.warning { background: @orange; }
+        &.success { background: @green; }
+    }
+
+    /* The close button */
+    .closebtn {
+        margin-left: auto;
+        cursor: pointer;
+        opacity: .6;
+        .transition;
+
+        &:hover {
+            opacity: 1;
+            .transition;
+        }
+    }
+}

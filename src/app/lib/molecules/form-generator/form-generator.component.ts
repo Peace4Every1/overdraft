@@ -12,6 +12,10 @@ export class FormGeneratorComponent implements OnInit {
   @Input() fieldConfig: FieldConfig[] = [];
   @Input() fieldGroupingConfig = ['default-group'];
 
+  //
+  @Output() inputAction = new EventEmitter();
+
+
   // cta
   @Input() sendBtnText =  '';
   @Input() sendBtnTextIconClass =  '';
@@ -40,6 +44,7 @@ export class FormGeneratorComponent implements OnInit {
 
   // input : text, number, emeail, phone, url
   onInput(event, model) {
+    console.log(event);
     this.fieldConfig.filter( field => {
       if (field.model === model) {
         field.value = event;
@@ -52,6 +57,8 @@ export class FormGeneratorComponent implements OnInit {
         }
       }
     });
+
+    this.inputAction.emit(event);
   }
 
   validateField(field) {

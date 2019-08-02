@@ -1,0 +1,14 @@
+<div class="l-tabs">
+  <app-navigation>
+    <div class="flex tabs">
+      <div class="tab" *ngFor="let tab of tabs">
+        <span class="notification" *ngIf="tab.notification">{{tab.notification}}</span>
+        <app-link-with-icon
+          [link]="tab.dynamicPart ? tabPathPrefix + tab.link + tab.dynamicPart : tabPathPrefix + tab.link"
+          [text]="tab.text"
+          [iconClassName]="tab.iconClass ? tab.iconClass : ''">
+        </app-link-with-icon>
+      </div>
+    </div>
+  </app-navigation>
+</div>

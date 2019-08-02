@@ -1,0 +1,7 @@
+<div  class="alert-box-container" [ngClass]="visible">
+  <div class="alert flex center-top" [ngClass]="type">
+    <i class="type icon" [ngClass]="['icon_' + type, type]"></i>
+    <div class="text">{{text}}</div>
+    <i class="closebtn icon icon_close" (click)="onCloseBox()"></i>
+  </div>
+</div>

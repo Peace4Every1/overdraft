@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 // components
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { HeaderComponent } from './header/header.component';
+import {AtomsModule} from '../../lib/atoms/atoms.module';
+import {MoleculesModule} from '../../lib/molecules/molecules.module';
 
 @NgModule ({
     declarations: [
@@ -13,7 +15,9 @@ import { HeaderComponent } from './header/header.component';
     ],
     imports: [
         RouterModule,
-        CommonModule
+        CommonModule,
+        AtomsModule,
+        MoleculesModule
     ],
     exports: [
         HeaderComponent,
