@@ -12,7 +12,7 @@ export class PickOverdraftTypePageComponent {
     classicOverdraftBtn = 'Classic overdraft';
 
     overdraftWithGracePeriod = 'overdraftWithGracePeriod';
-    overdraftWithGracePeriodBtn = 'Overdraft with grace reriod';
+    overdraftWithGracePeriodBtn = 'Buy overdraft with grace reriod';
 
     constructor(private router: Router) {}
 

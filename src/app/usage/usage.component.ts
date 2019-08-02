@@ -501,7 +501,7 @@ export class UsageComponent {
       }
     });
 
-    console.log(this.rowConfig);
+    // console.log(this.rowConfig);
   }
 
   deleteRow(event) {

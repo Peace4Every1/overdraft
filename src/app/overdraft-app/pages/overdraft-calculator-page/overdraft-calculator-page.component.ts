@@ -33,7 +33,7 @@ export class OverdraftCalculatorPageComponent {
                 {
                     rule: 'pattern',
                     value: '^[1-9][0-9]{1,}$',
-                    errMsg: 'Field must be number of of at least 6 chars'
+                    errMsg: 'Minimal acceptable salary is 100k amd'
                 },
                 {
                     rule: 'minLength',
@@ -92,6 +92,7 @@ export class OverdraftCalculatorPageComponent {
 
         if (state === STATES.SALARY) {
           this.state = STATES.INIT;
+          this.resetOptions();
         }
 
         if (state === STATES.OVERDRAFTOPTION) {
@@ -106,11 +107,16 @@ export class OverdraftCalculatorPageComponent {
             }
         });
 
+        let ratio = budget / salaryAmount;
+
         if (salaryAmount) {
-            if (budget / salaryAmount > singularOverdraftLimitationMax ) {
+            if (ratio > singularOverdraftLimitationMax ) {
                 this.n = singularOverdraftLimitationMax + '';
             } else {
-                this.n = budget / salaryAmount + '';
+                if (ratio.toString().indexOf('.')) {
+                    ratio = Math.floor(ratio);
+                }
+                this.n = ratio + '';
             }
         } else {
             this.n = '{n}';
@@ -133,18 +139,48 @@ export class OverdraftCalculatorPageComponent {
         }
     }
 
+    resetOptions() {
+        this.fieldConfig_options = [
+            {
+                component: 'select',
+                model: 'selectOverdraftOption',
+                selectionPlaceholder: 'Select Overdraft Option',
+                hasAutocomplete: true,
+                selectOptions: [],
+                validationRules: [
+                    {
+                        rule: 'required'
+                    }
+                ]
+            }
+        ];
+    }
+
     initOverdraftOptions() {
         const options =  Array(+this.n).fill(0).map((x, i) => i);
+        const optionsArray = [];
 
         this.fieldConfig_options[0].selectOptions = [];
 
         options.map( o => {
-            const op = +o + 1 + '';
-            this.fieldConfig_options[0].selectOptions.push({
-                key: op,
-                value: op + 'x times'
-            });
+            if (o >= 1) {
+                const op = +o + 1 + '';
+                optionsArray.push({
+                    key: op,
+                    value: op + 'x times'
+                });
+            }
         });
+
+        if (optionsArray.length === 1) {
+            optionsArray[0].selected = true;
+            this.fieldConfig_options[0]['selectedOptions'] = [];
+            this.fieldConfig_options[0]['selectionPlaceholder'] = optionsArray[0].value;
+            this.fieldConfig_options[0]['hasAutocomplete'] = false;
+            this.fieldConfig_options[0]['selectedOptions'].push(optionsArray);
+        }
+
+        this.fieldConfig_options[0].selectOptions = optionsArray;
     }
 
     onOptionSubmission(event) {
@@ -153,11 +189,15 @@ export class OverdraftCalculatorPageComponent {
         }
     }
 
+    onSelectDate11(event) {
+        // console.log(event);
+    }
+
     onPeriodsSubmission(event) {
         this.router.navigate(['/auction']);
         if (event.errorCount === 0) {
-            alert(333)
-           this.router.navigate(['/auction']);
+            const startDay = new Date();
+            this.router.navigate(['/auction']);
         }
     }
 }

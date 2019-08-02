@@ -14,6 +14,7 @@ export class FormGeneratorComponent implements OnInit {
 
   //
   @Output() inputAction = new EventEmitter();
+  @Output() selectDate = new EventEmitter();
 
 
   // cta
@@ -44,7 +45,7 @@ export class FormGeneratorComponent implements OnInit {
 
   // input : text, number, emeail, phone, url
   onInput(event, model) {
-    console.log(event);
+    // console.log(event);
     this.fieldConfig.filter( field => {
       if (field.model === model) {
         field.value = event;
@@ -151,6 +152,11 @@ export class FormGeneratorComponent implements OnInit {
     });
   }
 
+  // date
+  onSelectDate(event) {
+    alert(45)
+      // this.selectDate.emit(event);
+  }
 
   // send form
   onSend() {

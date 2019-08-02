@@ -23,7 +23,7 @@ export class FormValidatorService {
     },
 
     pattern: (value, pattern) => {
-      console.log(pattern);
+      // console.log(pattern);
 
       const regExp = new RegExp(pattern, 'g');
       return value && value.match(regExp);

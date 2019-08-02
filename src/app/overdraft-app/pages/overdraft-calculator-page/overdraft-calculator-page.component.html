@@ -23,6 +23,7 @@
             <app-form-generator [fieldConfig]="fieldConfig_options"
                                 sendBtnTextIconClass="icon-location-arrow"
                                 [sendBtnTextIconClassLeftIcon]="true"
+                                (selectDate)="onSelectDate11($event)"
                                 (send)="onOptionSubmission($event)">
             </app-form-generator>
         </div>

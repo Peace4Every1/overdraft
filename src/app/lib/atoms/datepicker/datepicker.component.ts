@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Output, ElementRef, EventEmitter, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-datepicker',
@@ -7,6 +7,7 @@ import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@an
 })
 
 export class DatepickerComponent implements OnInit {
+  @Output() selectDate = new EventEmitter();
   // ui
   @Input() calendarIconClass;
   @Input() leftArroxIcon;
@@ -182,6 +183,8 @@ export class DatepickerComponent implements OnInit {
     this.selectedDate = _date + '/' + month  + '/' + this.curYear;
 
     this.datePickerVisible = false;
+
+    this.selectDate.emit(this.selectedDate);
   }
 
   onDateChange() {

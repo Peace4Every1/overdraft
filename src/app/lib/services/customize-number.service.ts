@@ -1,5 +1,4 @@
 export const customizeNumberService = (number) => {
-    debugger
     let _num;
     _num = number.toString();
 

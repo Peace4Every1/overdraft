@@ -1,4 +1,7 @@
-import {Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+    Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output,
+    ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-select-autocomplete',
@@ -6,7 +9,7 @@ import {Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output
   styleUrls: ['select-autocomplete.component.less']
 })
 
-export class SelectAutocompleteComponent implements OnInit {
+export class SelectAutocompleteComponent implements OnInit, OnChanges {
   // select !!readonly input
   @Input() selectionPlaceholder: string;
   @Input() selectionLabel: string;
@@ -68,6 +71,12 @@ export class SelectAutocompleteComponent implements OnInit {
     if (this.hasAutocomplete) {
       this.autocompleteOptions = JSON.parse(JSON.stringify(this.selectOptions));
     }
+  }
+
+  ngOnChanges() {
+      this.selectedOptions.map(option => {
+          this.renderSelectedOptions(option);
+      });
   }
 
   toggleSelect(event) {

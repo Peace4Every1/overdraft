@@ -67,7 +67,8 @@
           </div>
           <!-- datepicker-->
           <div class="l-field" *ngIf="field.component === 'date'">
-            <app-datepicker></app-datepicker>
+            <app-datepicker (selectDate)="onSelectDate($event)">
+            </app-datepicker>
           </div>
         </div>
       </div>
