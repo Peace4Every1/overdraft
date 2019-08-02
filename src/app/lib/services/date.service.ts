@@ -9,7 +9,7 @@ export const convertToTimeStamp = (str) => {
 export const stampConvertToDate = (stamp) => {
     console.log(new Date(stamp));
     return dateFormat(new Date(stamp), 'dd/mm/yyyy');
-}
+};
 
 export const dateFormat = (date, format = 'dd/mm/yyyy HH:MM:SS') => { // todo format
     const outputDate = {};
@@ -40,3 +40,7 @@ export const dateFormat = (date, format = 'dd/mm/yyyy HH:MM:SS') => { // todo fo
 
     return format.replace('dd', d).replace('mm', m).replace('yyyy', y).replace('HH', h).replace('MM', min).replace('SS', sec);
 };
+
+export const timeCountDown = () => {
+
+}

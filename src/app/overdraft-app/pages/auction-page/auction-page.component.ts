@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {auctionData} from '../../dal/auction/auction-data.models';
 import {AlertBoxService} from '../../../lib/atoms/alert-box/alert-box.service';
+import {OverdratfService} from '../../dal/overdraft/overdratf.service';
+import {customizeNumberService} from '../../../lib/services/customize-number.service';
+import {budget} from '../../dal/banks/bank-data.models';
 
 @Component({
     selector: 'app-auction-page',
@@ -16,11 +19,15 @@ export class AuctionPageComponent implements OnInit {
     fieldConfig;
     actualBid;
     mustMinBidAmount;
+    loandAmount;
+
+    mathFloor = (number) => { return Math.floor(number) };
 
     constructor(private alertBoxService: AlertBoxService,
-                ) {}
+                private overdratfService: OverdratfService) {}
 
     ngOnInit() {
+        this.loandAmount = customizeNumberService(this.overdratfService.overdraftAmount);
         this.calcMinAllowedBidNUmber();
 
         this.fieldConfig = [

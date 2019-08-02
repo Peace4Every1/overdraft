@@ -341,7 +341,7 @@ export class OverdraftCalculatorPageComponent implements OnInit {
     // radio btn's
     onStartAuction(event) {
         this.overdraftAmount = this.salary * this.ratio;
-        this.overdratfService.updateOverdraftAmount();
+        this.overdratfService.updateOverdraftAmount(this.overdraftAmount );
         this.router.navigate(['/auction']);
     }
 }

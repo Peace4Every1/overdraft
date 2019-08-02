@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 export class OverdratfService {
     overdraftAmount;
 
-    updateOverdraftAmount() {
-        this.overdraftAmount = 444;
+    updateOverdraftAmount(amount) {
+        this.overdraftAmount = amount;
     }
 }
