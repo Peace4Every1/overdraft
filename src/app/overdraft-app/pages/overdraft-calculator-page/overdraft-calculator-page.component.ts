@@ -160,14 +160,29 @@ export class OverdraftCalculatorPageComponent implements OnInit {
         if (state === STATES.SALARY) {
           this.state = STATES.INIT;
           this.resetOptions();
+            this.router.navigate(['/overdraft-calculator'],
+                { queryParams: { salary: this.salary + ''}});
         }
 
         if (state === STATES.OVERDRAFTOPTION) {
           this.state = STATES.SALARY;
+
+            this.router.navigate(['/overdraft-calculator'],
+                { queryParams: { salary: this.salary + '',
+                        ratio: this.ratio}});
         }
 
         if (state === STATES.GETSALARYTHROUGHBANK ) {
           this.state = STATES.OVERDRAFTOPTION;
+
+            const startDate = convertToTimeStamp(this.startDate);
+            const endDate = convertToTimeStamp(this.endDate);
+            this.router.navigate(['/overdraft-calculator'],
+                { queryParams: { salary: this.salary + '',
+                        ratio: this.ratio,
+                        startDate: startDate,
+                        endDate: endDate}});
+
         }
     }
 
@@ -264,6 +279,8 @@ export class OverdraftCalculatorPageComponent implements OnInit {
             this.fieldConfig_options[0]['selectionPlaceholder'] = optionsArray[0].value;
             this.fieldConfig_options[0]['hasAutocomplete'] = false;
             this.fieldConfig_options[0]['selectedOptions'].push(optionsArray);
+
+            this.ratio = optionsArray[0]['key'];
         }
 
         this.fieldConfig_options[0].selectOptions = optionsArray;
