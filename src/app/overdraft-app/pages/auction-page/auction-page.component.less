@@ -1,0 +1,40 @@
+@import '../../../../assets/less/variables.less';
+
+:host ::ng-deep {
+    h1 {
+        margin-bottom: @block-space;
+    }
+    .auction {
+        min-height: 80vh;
+        .flex;
+        .col;
+        .center-top;
+        .center-left;
+
+    }
+    .auction-data {
+        .flex;
+        .space-between;
+    }
+
+    .status {
+        padding: 50px;
+        border: 1px solid @blue;
+    }
+
+    .auction-data {
+        padding: 5px;
+
+        span {
+            padding: 0 25px;
+        }
+    }
+
+    .bid-section {
+        margin-top: @block-space;
+
+        .l-form {
+            .flex;
+        }
+    }
+}
