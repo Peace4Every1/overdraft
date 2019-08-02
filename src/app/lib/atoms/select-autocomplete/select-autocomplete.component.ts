@@ -9,7 +9,7 @@ import {
   styleUrls: ['select-autocomplete.component.less']
 })
 
-export class SelectAutocompleteComponent implements OnInit, OnChanges {
+export class SelectAutocompleteComponent implements OnInit {
   // select !!readonly input
   @Input() selectionPlaceholder: string;
   @Input() selectionLabel: string;
@@ -71,12 +71,6 @@ export class SelectAutocompleteComponent implements OnInit, OnChanges {
     if (this.hasAutocomplete) {
       this.autocompleteOptions = JSON.parse(JSON.stringify(this.selectOptions));
     }
-  }
-
-  ngOnChanges() {
-      this.selectedOptions.map(option => {
-          this.renderSelectedOptions(option);
-      });
   }
 
   toggleSelect(event) {

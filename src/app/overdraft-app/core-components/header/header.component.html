@@ -1,8 +1,19 @@
 <div class="header">
     <app-tabs [tabs]="tabs"></app-tabs>
-    <p>
-        <span>Avilable budget for overdraft with grace period: </span>
-        <b>{{overdraftWithGracePeriodAmount}} </b>
-        <span>{{currency}}</span>
-    </p>
+    <div class="info flex col">
+        <p class="current-bank">
+            <span>Current bank: </span>
+            <b>{{currentBank.name}} </b>
+        </p>
+        <p>
+            <span>Avilable budget for overdraft with grace period: </span>
+            <b>{{overdraftWithGracePeriodAmount}} </b>
+            <span>{{currency}}</span>
+        </p>
+        <p>
+            <span>Singular overdraft limitation: </span>
+            <b>{{singularOverdraftLimitationMax}} </b>
+            <span>times</span>
+        </p>
+    </div>
 </div>

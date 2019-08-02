@@ -22,7 +22,7 @@ export class PickOverdraftTypePageComponent {
         }
 
         if (type === this.overdraftWithGracePeriod) {
-            this.router.navigate(['/overdraft-calculator']); // todo right route
+            this.router.navigate(['/overdraft-calculator']);
         }
     }
 }

@@ -1,12 +1,14 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {budget, singularOverdraftLimitationMax, singularOverdraftLimitationMin} from '../../dal/banks/bank-data.models';
 import {AlertBoxService} from '../../../lib/atoms/alert-box/alert-box.service';
+import {convertToTimeStamp, stampConvertToDate} from '../../../lib/services/date.service';
 
 const STATES = {
     INIT: 'INIT',
     SALARY: 'SALARY',
-    OVERDRAFTOPTION: 'OVERDRAFTOPTION'
+    OVERDRAFTOPTION: 'OVERDRAFTOPTION',
+    GETSALARYTHROUGHBANK: 'GETSALARYTHROUGHBANK'
 };
 
 @Component({
@@ -15,7 +17,7 @@ const STATES = {
     styleUrls: ['./overdraft-calculator-page.component.less']
 })
 
-export class OverdraftCalculatorPageComponent {
+export class OverdraftCalculatorPageComponent implements OnInit {
     STATES = STATES;
     state = STATES.INIT;
 
@@ -61,7 +63,7 @@ export class OverdraftCalculatorPageComponent {
     fieldConfig_gracePeriod = [
         {
             component: 'date',
-            model: 'dateStart',
+            model: 'startDate',
             validationRules: [
                 {
                     rule: 'required'
@@ -70,7 +72,7 @@ export class OverdraftCalculatorPageComponent {
         },
         {
             component: 'date',
-            model: 'dateEnd',
+            model: 'endDate',
             validationRules: [
                 {
                     rule: 'required'
@@ -81,9 +83,50 @@ export class OverdraftCalculatorPageComponent {
 
     salary;
     n = '{n}';
+    ratio;
+
+    startDate = null;
+    endDate = null;
 
     constructor(private router: Router,
-                private alertBoxService: AlertBoxService) {}
+                private alertBoxService: AlertBoxService,
+                private activatedRoute: ActivatedRoute) {}
+
+    ngOnInit() {
+        this.activatedRoute.queryParams.subscribe( queryParam => {
+            if (queryParam.salary) {
+                this.salary = queryParam.salary;
+                this.fieldConfig_salary[0]['value'] = this.salary ;
+                this.calcSalary(this.salary);
+                this.initOverdraftOptions();
+                this.state = STATES.SALARY;
+            }
+
+            if (queryParam.ratio) {
+                this.ratio = queryParam.ratio;
+                const selectedOption = this.fieldConfig_options[0]['selectOptions'].find( o => {
+                    return o.key === queryParam.ratio;
+                });
+                selectedOption['selected'] = true;
+                this.onselectOption(selectedOption);
+                this.state = STATES.OVERDRAFTOPTION;
+            }
+
+            if (queryParam.startDate) {
+                const startDate = stampConvertToDate(+queryParam.startDate);
+                this.fieldConfig_gracePeriod[0]['selectedDate'] = startDate;
+            }
+
+            if (queryParam.endDate) {
+                const endDate = stampConvertToDate(+queryParam.endDate);
+                this.fieldConfig_gracePeriod[1]['selectedDate'] = endDate;
+            }
+
+            if (queryParam.startDate && queryParam.endDate) {
+                this.state = STATES.GETSALARYTHROUGHBANK;
+            }
+        });
+    }
 
     goStepBack(state) {
         if (state === STATES.INIT) {
@@ -98,16 +141,25 @@ export class OverdraftCalculatorPageComponent {
         if (state === STATES.OVERDRAFTOPTION) {
           this.state = STATES.SALARY;
         }
+
+        if (state === STATES.GETSALARYTHROUGHBANK ) {
+          this.state = STATES.OVERDRAFTOPTION;
+        }
     }
 
+    // salary block
     calcSalary(salaryAmount) {
+        let ratio = budget / salaryAmount;
+
+        if (isNaN(ratio)) {
+            return;
+        }
+
         this.fieldConfig_salary.map( f => {
             if (f.model === 'salary') {
                 f['value'] = salaryAmount;
             }
         });
-
-        let ratio = budget / salaryAmount;
 
         if (salaryAmount) {
             if (ratio > singularOverdraftLimitationMax ) {
@@ -121,6 +173,8 @@ export class OverdraftCalculatorPageComponent {
         } else {
             this.n = '{n}';
         }
+
+        this.salary = salaryAmount;
     }
 
     onSalaryInput(event) {
@@ -136,9 +190,14 @@ export class OverdraftCalculatorPageComponent {
 
             this.state = STATES.SALARY;
             this.initOverdraftOptions();
+
+            this.router.navigate(['/overdraft-calculator'],
+                { queryParams: { salary: this.salary + ''}});
         }
     }
 
+
+    // overdaft rate options block
     resetOptions() {
         this.fieldConfig_options = [
             {
@@ -154,9 +213,12 @@ export class OverdraftCalculatorPageComponent {
                 ]
             }
         ];
+
+        this.n = '{n}';
     }
 
     initOverdraftOptions() {
+        // debugger
         const options =  Array(+this.n).fill(0).map((x, i) => i);
         const optionsArray = [];
 
@@ -183,21 +245,54 @@ export class OverdraftCalculatorPageComponent {
         this.fieldConfig_options[0].selectOptions = optionsArray;
     }
 
+    onselectOption(event) {
+        // debugger
+
+        this.fieldConfig_options[0]['selectedOptions'] = [];
+        this.fieldConfig_options[0].selectOptions.map( o => {
+            if (o.selected) {
+                this.fieldConfig_options[0]['selectionPlaceholder'] = o.value;
+                this.fieldConfig_options[0]['selectedOptions'].push(o);
+            }
+        });
+    }
+
     onOptionSubmission(event) {
         if (event.errorCount === 0) {
            this.state = STATES.OVERDRAFTOPTION;
+
+           this.ratio = this.fieldConfig_options[0]['selectedOptions'][0]['key'] + '';
+           this.router.navigate(['/overdraft-calculator'],
+                                    { queryParams: { salary: this.salary + '', ratio: this.ratio}});
         }
     }
 
-    onSelectDate11(event) {
-        // console.log(event);
+    // grace period block
+    onSelectDate(event) {
+        const model = event['model'];
+        const value = event['value'];
+        this[model] = value;
     }
 
     onPeriodsSubmission(event) {
-        this.router.navigate(['/auction']);
-        if (event.errorCount === 0) {
-            const startDay = new Date();
-            this.router.navigate(['/auction']);
+        if (!this.startDate || !this.endDate) {
+            this.alertBoxService.initMsg({type: 'error', text: 'Please pick both dates'});
+            return;
         }
+
+        const startDate = convertToTimeStamp(this.startDate);
+        const endDate = convertToTimeStamp(this.endDate);
+
+        if (startDate > endDate) {
+            this.alertBoxService.initMsg({type: 'error', text: 'End date can\'t be earlier' });
+            return;
+        }
+
+        this.state = STATES.GETSALARYTHROUGHBANK;
+        this.router.navigate(['/overdraft-calculator'],
+            { queryParams: { salary: this.salary + '',
+                                    ratio: this.ratio,
+                                    startDate: startDate,
+                                    endDate: endDate}});
     }
 }

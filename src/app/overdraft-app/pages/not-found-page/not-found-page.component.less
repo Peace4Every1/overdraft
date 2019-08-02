@@ -1,23 +1,16 @@
-/*@import "_variables";
+@import '../../../../assets/less/variables.less';
 
 .not-found{
-  .flex;
-  .center-top;
-  .center-left;
-  width: 100%;
-  height: 100vh;
-  // background: url('/shared-assets/img/404.png') no-repeat center center;
-  background-size: contain;
+    .flex;
+    .center-top;
+    .center-left;
+    width: 100%;
+    min-height: 100vh;
+    color: @red;
+
+    h1 {
+        font-size: 4rem;
+    }
 }
 
-:host ::ng-deep {
-  a {
-    .btn;
-    .btn-green;
-    .btn-rounded;
-    .btn-large;
-    display: block;
-    text-align: center;
-    font-size: 1.5rem;
-  }
-}*/
+

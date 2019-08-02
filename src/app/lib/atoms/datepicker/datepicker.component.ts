@@ -14,13 +14,13 @@ export class DatepickerComponent implements OnInit {
   @Input() rightArroxIcon;
 
   // logic
-  datePickerVisible = true;
+  datePickerVisible = false;
   @Input() startsFromMonday = false;
 
   dateFormat = 'dd/mm/yyyy';
   placeholder = '';
   selectedDay = null;
-  selectedDate = null;
+  @Input() selectedDate = null;
   d = new Date();
 
   mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -162,7 +162,7 @@ export class DatepickerComponent implements OnInit {
     this.initDaysOfMonth();
   }
 
-  selectDate(d) {
+  onSelectDate(d) {
     if (!d) {
       return;
     }
@@ -185,7 +185,7 @@ export class DatepickerComponent implements OnInit {
     this.datePickerVisible = false;
 
     this.selectDate.emit(this.selectedDate);
-  }
+}
 
   onDateChange() {
     this.placeholder = 'focus';

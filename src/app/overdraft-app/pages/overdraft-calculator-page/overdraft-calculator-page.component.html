@@ -23,15 +23,22 @@
             <app-form-generator [fieldConfig]="fieldConfig_options"
                                 sendBtnTextIconClass="icon-location-arrow"
                                 [sendBtnTextIconClassLeftIcon]="true"
-                                (selectDate)="onSelectDate11($event)"
+                                (selectOption)="onselectOption($event)"
                                 (send)="onOptionSubmission($event)">
             </app-form-generator>
         </div>
         <div class="calc-block period" [ngClass]="state === STATES.OVERDRAFTOPTION ? 'allow-touch' : ''">
-            <app-form-generator [fieldConfig]="fieldConfig_gracePeriod"
-                                sendBtnText="Start Auction"
-                                (send)="onPeriodsSubmission($event)">
-            </app-form-generator>
+            <p>Pick grace period, pls</p>
+            <div class="picker">
+                <app-form-generator [fieldConfig]="fieldConfig_gracePeriod"
+                                    sendBtnText="Next step"
+                                    (selectDate)="onSelectDate($event)"
+                                    (send)="onPeriodsSubmission($event)">
+                </app-form-generator>
+            </div>
+        </div>
+        <div class="calc-block" [ngClass]="state === STATES.GETSALARYTHROUGHBANK ? 'allow-touch' : ''">
+            hey
         </div>
     </div>
 </div>

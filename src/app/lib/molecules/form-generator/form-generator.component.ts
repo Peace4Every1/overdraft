@@ -15,6 +15,7 @@ export class FormGeneratorComponent implements OnInit {
   //
   @Output() inputAction = new EventEmitter();
   @Output() selectDate = new EventEmitter();
+  @Output() selectOption = new EventEmitter();
 
 
   // cta
@@ -122,6 +123,8 @@ export class FormGeneratorComponent implements OnInit {
         });
       }
     });
+
+    this.selectOption.emit(event);
   }
 
   // radio
@@ -153,9 +156,8 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   // date
-  onSelectDate(event) {
-    alert(45)
-      // this.selectDate.emit(event);
+  onSelectDate(event, model) {
+    this.selectDate.emit({model: model, value: event});
   }
 
   // send form

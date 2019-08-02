@@ -38,7 +38,7 @@
           </div>
           <!-- select OR select with autocomplete-->
           <div class="l-field" *ngIf="field.component === 'select'">
-            <app-select-autocomplete [selectOptions]="field.selectOptions"
+            <app-select-autocomplete [selectOptions]="field.selectOptions ? field.selectOptions : []"
                                      [selectedOptions]="field.selectedOptions"
                                      [selectionPlaceholder]="field.selectionPlaceholder"
                                      [selectionHassErr]="field.hasErr"
@@ -67,7 +67,8 @@
           </div>
           <!-- datepicker-->
           <div class="l-field" *ngIf="field.component === 'date'">
-            <app-datepicker (selectDate)="onSelectDate($event)">
+            <app-datepicker [selectedDate]="field.selectedDate"
+                            (selectDate)="onSelectDate($event, field.model)">
             </app-datepicker>
           </div>
         </div>
