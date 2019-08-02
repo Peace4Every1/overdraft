@@ -4,7 +4,7 @@
     <div class="status">
         <div class="auction-data" *ngFor="let key of objectKeys(auctionData)">
             <span>{{key}}</span>
-            <span>{{auctionData[key]}}</span>
+            <span>{{customizeNumberService(auctionData[key])}}</span>
         </div>
     </div>
     <div class="bid-section">

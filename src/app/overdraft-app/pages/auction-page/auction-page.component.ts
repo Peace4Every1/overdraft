@@ -4,6 +4,7 @@ import {AlertBoxService} from '../../../lib/atoms/alert-box/alert-box.service';
 import {OverdratfService} from '../../dal/overdraft/overdratf.service';
 import {customizeNumberService} from '../../../lib/services/customize-number.service';
 import {budget} from '../../dal/banks/bank-data.models';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-auction-page',
@@ -24,10 +25,17 @@ export class AuctionPageComponent implements OnInit {
     mathFloor = (number) => { return Math.floor(number) };
 
     constructor(private alertBoxService: AlertBoxService,
-                private overdratfService: OverdratfService) {}
+                private overdratfService: OverdratfService,
+                private router: Router) {}
+
+    customizeNumberService = (number) => customizeNumberService(number);
 
     ngOnInit() {
         this.loandAmount = customizeNumberService(this.overdratfService.overdraftAmount);
+        if (!this.loandAmount) {
+           this.router.navigate(['/overdraft-calculator']);
+        }
+
         this.calcMinAllowedBidNUmber();
 
         this.fieldConfig = [
@@ -62,20 +70,33 @@ export class AuctionPageComponent implements OnInit {
         this.mustMinBidAmount = +this.auctionData.lastBid + +this.auctionData['minAllowedAddition'];
     }
 
-
     onBidInput(event) {
        this.actualBid = event;
     }
 
     onBidSubmission(event) {
+        if (!this.actualBid ) {
+            return;
+        }
+
+        console.log(this.actualBid < this.mustMinBidAmount)
+        console.log(this.mustMinBidAmount)
+        console.log(this.actualBid)
         if (this.actualBid < this.mustMinBidAmount) {
             this.alertBoxService.initMsg({type: 'error', text: `Your actual bid can not be smaller ${this.mustMinBidAmount} amd`});
             return;
-        } else {
-            this.alertBoxService.initMsg({type: 'success', text: `Congrats, Your bid is accepted`});
-            auctionData['lastBid'] = this.actualBid;
-            delete this.fieldConfig[0]['value'];
-            this.calcMinAllowedBidNUmber();
         }
+
+        if (this.actualBid >= auctionData.bidMaxLimit) {
+            this.alertBoxService.initMsg({type: 'success', text: `Congrats, You win the auction`});
+            this.router.navigate(['/my-overdrafts']);
+            return;
+        }
+
+        this.alertBoxService.initMsg({type: 'success', text: `Congrats, Your bid is accepted`});
+        auctionData['lastBid'] = this.actualBid;
+        delete this.fieldConfig[0]['value'];
+        this.calcMinAllowedBidNUmber();
+
     }
 }
