@@ -2,7 +2,7 @@ export const customizeNumberService = (number) => {
     if (!number) {
        return;
     }
-    debugger
+    // debugger
     let _num;
     _num = number.toString();
 

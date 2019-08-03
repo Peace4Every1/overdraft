@@ -41,6 +41,7 @@ export const dateFormat = (date, format = 'dd/mm/yyyy HH:MM:SS') => { // todo fo
     return format.replace('dd', d).replace('mm', m).replace('yyyy', y).replace('HH', h).replace('MM', min).replace('SS', sec);
 };
 
+// todo write time countdown
 export const timeCountDown = () => {
 
 }
